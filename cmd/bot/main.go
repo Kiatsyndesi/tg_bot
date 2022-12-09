@@ -10,16 +10,26 @@ import (
 )
 
 func main() {
-	godotenv.Load()
+	err := godotenv.Load()
 
-	token := os.Getenv("TOKEN")
+	if err != nil {
+		log.Panic(".env file not find")
+	}
+
+	token, found := os.LookupEnv("TOKEN")
+
+	if !found {
+		log.Panic("TOKEN not found in .env")
+	}
 
 	bot, err := tgbotapi.NewBotAPI(token)
+
 	if err != nil {
 		log.Panic(err)
 	}
 
-	bot.Debug = true
+	//uncomment if you want to enable debug mode
+	//bot.Debug = true
 
 	log.Printf("Authorized on account %s", bot.Self.UserName)
 
