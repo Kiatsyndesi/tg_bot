@@ -1,8 +1,7 @@
 package main
 
 import (
-	"github.com/Kiatsyndesi/tg_bot/internal/app/commands"
-	"github.com/Kiatsyndesi/tg_bot/internal/service/product"
+	"github.com/Kiatsyndesi/tg_bot/internal/app/router"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/joho/godotenv"
 	"log"
@@ -29,7 +28,7 @@ func main() {
 	}
 
 	//uncomment if you want to enable debug mode
-	//bot.Debug = true
+	bot.Debug = true
 
 	log.Printf("Authorized on account %s", bot.Self.UserName)
 
@@ -39,10 +38,9 @@ func main() {
 
 	updates := bot.GetUpdatesChan(u)
 
-	productService := product.NewService()
-	commander := commands.NewCommander(bot, productService)
+	routerHandler := router.NewRouter(bot)
 
 	for update := range updates {
-		commander.HandleUpdate(update)
+		routerHandler.HandleUpdate(update)
 	}
 }
