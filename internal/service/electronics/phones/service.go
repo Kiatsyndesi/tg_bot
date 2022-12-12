@@ -23,3 +23,13 @@ func (s *Service) Remove(idx int) ([]Phone, error) {
 
 	return append(AllPhones[:idx], AllPhones[idx+1:]...), nil
 }
+
+func (s *Service) New(phone Phone) ([]Phone, error) {
+	var emptyPhone Phone
+
+	if phone == emptyPhone {
+		return nil, errors.New("new phone is empty")
+	}
+
+	return append(AllPhones, phone), nil
+}

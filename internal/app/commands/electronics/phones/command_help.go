@@ -10,7 +10,8 @@ func (c *ElectronicsPhonesCommander) Help(inputMessage *tgbotapi.Message) {
 		"/help_electronics_phones - this is my help for you\n"+
 			"/list_electronics_phones - list of products\n"+
 			"/get_electronics_phones 1 - find phone by index\n"+
-			"/remove_electronics_phones 1 - remove phone from list by index",
+			"/remove_electronics_phones 1 - remove phone from list by index\n"+
+			"/new_electronics_phones htc - add new phone to list",
 	)
 
 	_, err := c.bot.Send(msg)
