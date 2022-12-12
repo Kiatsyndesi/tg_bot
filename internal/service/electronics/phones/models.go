@@ -1,6 +1,6 @@
 package phones
 
-var allPhones = []Phone{
+var AllPhones = []Phone{
 	{Title: "iPhone 14 Pro"},
 	{Title: "Google Pixel"},
 	{Title: "Asus Republic Of Gamers"},

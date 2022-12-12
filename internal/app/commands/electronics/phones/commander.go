@@ -42,6 +42,8 @@ func (c *ElectronicsPhonesCommander) HandleCommand(msg *tgbotapi.Message, comman
 		c.List(msg)
 	case "get":
 		c.Get(msg)
+	case "remove":
+		c.Remove(msg)
 	default:
 		//bot uses router which has own non-command msg handling. Code below for use phoneCommander directly
 		c.Default(msg)

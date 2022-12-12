@@ -1,5 +1,7 @@
 package phones
 
+import "errors"
+
 type Service struct{}
 
 func NewService() *Service {
@@ -7,14 +9,17 @@ func NewService() *Service {
 }
 
 func (s *Service) List() []Phone {
-	return allPhones
+	return AllPhones
 }
 
 func (s *Service) Get(idx int) (*Phone, error) {
-	return &allPhones[idx], nil
+	return &AllPhones[idx], nil
 }
 
-//TODO make remove command for phones commander
-func (s *Service) Remove(phones []Phone, idx int) []Phone {
-	return append(phones[:idx], phones[idx+1:]...)
+func (s *Service) Remove(idx int) ([]Phone, error) {
+	if len(AllPhones) == 0 {
+		return nil, errors.New("phones are over")
+	}
+
+	return append(AllPhones[:idx], AllPhones[idx+1:]...), nil
 }
