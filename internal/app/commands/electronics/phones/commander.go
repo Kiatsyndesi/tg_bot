@@ -7,9 +7,18 @@ import (
 	"log"
 )
 
+type ElectronicsPhonesCommands interface {
+	Edit(inputMessage *tgbotapi.Message)
+	Get(inputMessage *tgbotapi.Message)
+	New(inputMessage *tgbotapi.Message)
+	Remove(inputMessage *tgbotapi.Message)
+	List(inputMessage *tgbotapi.Message)
+	Help(inputMessage *tgbotapi.Message)
+}
+
 type ElectronicsPhonesCommander struct {
 	bot           *tgbotapi.BotAPI
-	phonesService *phones.Service
+	phonesService *phones.PhonesService
 }
 
 type CommandData struct {

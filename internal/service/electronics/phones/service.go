@@ -2,21 +2,29 @@ package phones
 
 import "errors"
 
-type Service struct{}
-
-func NewService() *Service {
-	return &Service{}
+type ElectronicsPhonesService interface {
+	List() []Phone
+	Get(idx int) (*Phone, error)
+	Remove(idx int) ([]Phone, error)
+	New(phone Phone) ([]Phone, error)
+	Edit(phone Phone, updPhone Phone) ([]Phone, error)
 }
 
-func (s *Service) List() []Phone {
+type PhonesService struct{}
+
+func NewService() *PhonesService {
+	return &PhonesService{}
+}
+
+func (s *PhonesService) List() []Phone {
 	return AllPhones
 }
 
-func (s *Service) Get(idx int) (*Phone, error) {
+func (s *PhonesService) Get(idx int) (*Phone, error) {
 	return &AllPhones[idx], nil
 }
 
-func (s *Service) Remove(idx int) ([]Phone, error) {
+func (s *PhonesService) Remove(idx int) ([]Phone, error) {
 	if len(AllPhones) == 0 {
 		return nil, errors.New("phones are over")
 	}
@@ -24,7 +32,7 @@ func (s *Service) Remove(idx int) ([]Phone, error) {
 	return append(AllPhones[:idx], AllPhones[idx+1:]...), nil
 }
 
-func (s *Service) New(phone Phone) ([]Phone, error) {
+func (s *PhonesService) New(phone Phone) ([]Phone, error) {
 	var emptyPhone Phone
 
 	if phone == emptyPhone {
@@ -34,7 +42,7 @@ func (s *Service) New(phone Phone) ([]Phone, error) {
 	return append(AllPhones, phone), nil
 }
 
-func (s *Service) Edit(phone Phone, updPhone Phone) ([]Phone, error) {
+func (s *PhonesService) Edit(phone Phone, updPhone Phone) ([]Phone, error) {
 	hasPhone := false
 	var idxForEdit int
 
