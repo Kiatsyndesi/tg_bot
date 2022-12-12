@@ -8,8 +8,8 @@ import (
 
 type CommandPath struct {
 	CommandName string
-	Electronics string
-	Phones      string
+	Domain      string
+	Subdomain   string
 }
 
 var ErrUnknownCommand = errors.New("unknown command")
@@ -23,8 +23,8 @@ func ParseCommand(commandText string) (CommandPath, error) {
 
 	return CommandPath{
 		CommandName: commandParts[0],
-		Electronics: commandParts[1],
-		Phones:      commandParts[2],
+		Domain:      commandParts[1],
+		Subdomain:   commandParts[2],
 	}, nil
 }
 
@@ -35,5 +35,5 @@ func (c CommandPath) WithCommandName(commandName string) CommandPath {
 }
 
 func (c CommandPath) String() string {
-	return fmt.Sprintf("/%s_%s_%s", c.CommandName, c.Electronics, c.Phones)
+	return fmt.Sprintf("/%s_%s_%s", c.CommandName, c.Domain, c.Subdomain)
 }

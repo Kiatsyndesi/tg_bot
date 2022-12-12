@@ -14,7 +14,7 @@ type Commander interface {
 }
 
 type Router struct {
-	bot *tgbotapi.BotAPI
+	bot                  *tgbotapi.BotAPI
 	electronicsCommander Commander
 }
 
@@ -22,7 +22,7 @@ func NewRouter(
 	bot *tgbotapi.BotAPI,
 ) *Router {
 	return &Router{
-		bot: bot,
+		bot:                  bot,
 		electronicsCommander: electronics.NewElectronicsCommander(bot),
 	}
 }
@@ -49,11 +49,11 @@ func (c *Router) handleCallback(callback *tgbotapi.CallbackQuery) {
 		return
 	}
 
-	switch callbackPath.Electronics {
-	case "Electronics":
+	switch callbackPath.Domain {
+	case "electronics":
 		c.electronicsCommander.HandleCallback(callback, callbackPath)
 	default:
-		log.Printf("Router.handleCallback: unknown domain - %s", callbackPath.Electronics)
+		log.Printf("Router.handleCallback: unknown domain - %s", callbackPath.Domain)
 	}
 }
 
@@ -70,16 +70,17 @@ func (c *Router) handleMessage(msg *tgbotapi.Message) {
 		return
 	}
 
-	switch commandPath.Electronics {
+	switch commandPath.Domain {
 	case "electronics":
 		c.electronicsCommander.HandleCommand(msg, commandPath)
 	default:
-		log.Printf("Router.handleMessage: unknown domain - %s", commandPath.Electronics)
+		log.Printf("Router.handleMessage: unknown domain - %s", commandPath.Domain)
 	}
 }
 
 func (c *Router) showCommandFormat(inputMessage *tgbotapi.Message) {
-	outputMsg := tgbotapi.NewMessage(inputMessage.Chat.ID, "Command format: /{command}_{domain}_{subdomain}")
+	outputMsg := tgbotapi.NewMessage(inputMessage.Chat.ID, "Command format: /{command}_electronics_phones\n"+
+		"For example /help_electronics_phones")
 
 	_, err := c.bot.Send(outputMsg)
 	if err != nil {

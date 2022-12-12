@@ -13,31 +13,31 @@ type Commander interface {
 }
 
 type ElectronicsCommander struct {
-	bot *tgbotapi.BotAPI
+	bot             *tgbotapi.BotAPI
 	phonesCommander Commander
 }
 
 func NewElectronicsCommander(bot *tgbotapi.BotAPI) *ElectronicsCommander {
 	return &ElectronicsCommander{
-		bot: bot,
+		bot:             bot,
 		phonesCommander: phones.NewElectronicsPhonesCommander(bot),
 	}
 }
 
 func (c *ElectronicsCommander) HandleCallback(callback *tgbotapi.CallbackQuery, callbackPath path.CallbackPath) {
-	switch callbackPath.Phones {
-	case "Phones":
+	switch callbackPath.Subdomain {
+	case "phones":
 		c.phonesCommander.HandleCallback(callback, callbackPath)
 	default:
-		log.Printf("ElectronicsCommander.HandleCommand: unknown subdomain - %s", callbackPath.Electronics)
+		log.Printf("ElectronicsCommander.HandleCommand: unknown subdomain - %s", callbackPath.Domain)
 	}
 }
 
 func (c *ElectronicsCommander) HandleCommand(msg *tgbotapi.Message, commandPath path.CommandPath) {
-	switch commandPath.Phones {
+	switch commandPath.Subdomain {
 	case "phones":
 		c.phonesCommander.HandleCommand(msg, commandPath)
 	default:
-		log.Printf("ElectronicsCommander.HandleCommand: unknown subdomain - %s", commandPath.Phones)
+		log.Printf("ElectronicsCommander.HandleCommand: unknown subdomain - %s", commandPath.Subdomain)
 	}
 }

@@ -7,9 +7,9 @@ import (
 
 func (c *ElectronicsPhonesCommander) Help(inputMessage *tgbotapi.Message) {
 	msg := tgbotapi.NewMessage(inputMessage.Chat.ID,
-		"/help - this is my help for you\n"+
-			"/list - list of products\n"+
-		"/get - find phone by argument",
+		"/help_electronics_phones - this is my help for you\n"+
+			"/list_electronics_phones - list of products\n"+
+			"/get_electronics_phones 1 - find phone by argument",
 	)
 
 	_, err := c.bot.Send(msg)

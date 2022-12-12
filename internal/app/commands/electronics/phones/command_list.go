@@ -25,8 +25,8 @@ func (c *ElectronicsPhonesCommander) List(inputMessage *tgbotapi.Message) {
 	})
 
 	callbackPath := path.CallbackPath{
-		Electronics: "Electronics",
-		Phones: "Phones",
+		Domain:       "electronics",
+		Subdomain:    "phones",
 		CallbackName: "list",
 		CallbackData: string(serializedData),
 	}
