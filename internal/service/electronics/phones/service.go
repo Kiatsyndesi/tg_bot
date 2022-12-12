@@ -33,3 +33,23 @@ func (s *Service) New(phone Phone) ([]Phone, error) {
 
 	return append(AllPhones, phone), nil
 }
+
+func (s *Service) Edit(phone Phone, updPhone Phone) ([]Phone, error) {
+	hasPhone := false
+	var idxForEdit int
+
+	for idx, existingPhone := range AllPhones {
+		if existingPhone == phone {
+			idxForEdit = idx
+			hasPhone = true
+		}
+	}
+
+	if !hasPhone {
+		return nil, errors.New("service doesn't have this phone")
+	}
+
+	AllPhones[idxForEdit] = updPhone
+
+	return AllPhones, nil
+}

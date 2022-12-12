@@ -11,7 +11,8 @@ func (c *ElectronicsPhonesCommander) Help(inputMessage *tgbotapi.Message) {
 			"/list_electronics_phones - list of products\n"+
 			"/get_electronics_phones 1 - find phone by index\n"+
 			"/remove_electronics_phones 1 - remove phone from list by index\n"+
-			"/new_electronics_phones htc - add new phone to list",
+			"/new_electronics_phones htc - add new phone to list\n"+
+			"/edit_electronics_phones htc TO samsung - edit an existing phone",
 	)
 
 	_, err := c.bot.Send(msg)
