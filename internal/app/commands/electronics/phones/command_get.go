@@ -9,17 +9,17 @@ import (
 func (c *ElectronicsPhonesCommander) Get(inputMessage *tgbotapi.Message) {
 	args := inputMessage.CommandArguments()
 
-	idx, err := strconv.Atoi(args)
+	id, err := strconv.Atoi(args)
 
 	if err != nil {
 		log.Println("wrong args", args)
 		return
 	}
 
-	phone, err := c.phonesService.Get(idx)
+	phone, err := c.phonesService.Get(uint64(id))
 
 	if err != nil {
-		log.Printf("fail to get product with idx %d: %v", idx, err)
+		log.Printf("fail to get product with id %d: %v", id, err)
 		return
 	}
 
@@ -31,7 +31,7 @@ func (c *ElectronicsPhonesCommander) Get(inputMessage *tgbotapi.Message) {
 	_, err = c.bot.Send(msg)
 
 	if err != nil {
-		log.Printf("fail to get product with idx %d: %v", idx, err)
+		log.Printf("fail to get product with id %d: %v", id, err)
 		return
 	}
 }

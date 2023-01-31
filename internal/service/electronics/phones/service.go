@@ -20,16 +20,40 @@ func (s *PhonesService) List() []Phone {
 	return AllPhones
 }
 
-func (s *PhonesService) Get(idx int) (*Phone, error) {
-	return &AllPhones[idx], nil
+func (s *PhonesService) Get(ID uint64) (*Phone, error) {
+	var result Phone
+
+	for _, phone := range AllPhones {
+		if phone.ID == ID {
+			result = phone
+			break
+		}
+	}
+
+	return &result, nil
 }
 
-func (s *PhonesService) Remove(idx int) ([]Phone, error) {
+func (s *PhonesService) Remove(ID uint64) ([]Phone, error) {
 	if len(AllPhones) == 0 {
 		return nil, errors.New("phones are over")
 	}
 
+	var result []Phone
+
+	for _, phone := range AllPhones {
+		if phone.ID == ID {
+			continue
+		}
+
+		result = append(result, phone)
+	}
+
+	AllPhones = result
+
+	return AllPhones, nil
+	/* Remove by index
 	return append(AllPhones[:idx], AllPhones[idx+1:]...), nil
+	*/
 }
 
 func (s *PhonesService) New(phone Phone) ([]Phone, error) {

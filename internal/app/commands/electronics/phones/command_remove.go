@@ -10,7 +10,7 @@ import (
 func (c *ElectronicsPhonesCommander) Remove(inputMessage *tgbotapi.Message) {
 	args := inputMessage.CommandArguments()
 
-	idx, err := strconv.Atoi(args)
+	id, err := strconv.Atoi(args)
 
 	if err != nil {
 		log.Printf("wrong args in remove command")
@@ -18,7 +18,7 @@ func (c *ElectronicsPhonesCommander) Remove(inputMessage *tgbotapi.Message) {
 		return
 	}
 
-	phones.AllPhones, err = c.phonesService.Remove(idx)
+	phones.AllPhones, err = c.phonesService.Remove(uint64(id))
 
 	if err != nil {
 		log.Print(err)
@@ -34,7 +34,7 @@ func (c *ElectronicsPhonesCommander) Remove(inputMessage *tgbotapi.Message) {
 	_, err = c.bot.Send(msg)
 
 	if err != nil {
-		log.Printf("fail to remove product with idx %d: %v", idx, err)
+		log.Printf("fail to remove product with id %d: %v", id, err)
 
 		return
 	}
