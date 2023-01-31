@@ -9,8 +9,8 @@ import (
 func (c *ElectronicsPhonesCommander) New(inputMessage *tgbotapi.Message) {
 	arg := inputMessage.CommandArguments()
 
-	//TODO add ID to new phone
 	newPhone := phones.Phone{
+		ID:    c.phonesService.GetLastID() + 1,
 		Title: arg,
 	}
 

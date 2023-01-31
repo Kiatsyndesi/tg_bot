@@ -8,6 +8,7 @@ type ElectronicsPhonesService interface {
 	Remove(idx int) ([]Phone, error)
 	New(phone Phone) ([]Phone, error)
 	Edit(phone Phone, updPhone Phone) ([]Phone, error)
+	GetLastID() uint64
 }
 
 type PhonesService struct{}
@@ -84,4 +85,8 @@ func (s *PhonesService) Edit(phone Phone, updPhone Phone) ([]Phone, error) {
 	AllPhones[idxForEdit] = updPhone
 
 	return AllPhones, nil
+}
+
+func (s *PhonesService) GetLastID() uint64 {
+	return AllPhones[len(AllPhones)-1].ID
 }
